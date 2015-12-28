@@ -1,3 +1,14 @@
+# Default Android Studio 1.5.0
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+
+
 # Built application files
 *.apk
 *.ap_

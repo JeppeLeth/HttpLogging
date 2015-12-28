@@ -1,0 +1,34 @@
+apply plugin: 'java'
+
+ext {//http://inthecheesefactory.com/blog/how-to-upload-library-to-jcenter-maven-central-as-dependency/en
+    bintrayRepo = 'maven'
+    bintrayName = 'fb-like'
+
+    publishedGroupId = 'com.jleth.util.okhttp'
+    libraryName = 'FBLike'
+    artifact = 'fb-like'
+
+    libraryDescription = 'A wrapper for Facebook Native Like Button (LikeView) on Android'
+
+    siteUrl = 'https://github.com/nuuneoi/FBLikeAndroid'
+    gitUrl = 'https://github.com/nuuneoi/FBLikeAndroid.git'
+
+    libraryVersion = '0.9.3'
+
+    developerId = 'nuuneoi'
+    developerName = 'Sittiphol Phanvilai'
+    developerEmail = 'sittiphol@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.squareup.okhttp:okhttp:2.7.0'
+}
+
+//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
