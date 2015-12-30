@@ -1,27 +1,46 @@
 apply plugin: 'java'
+apply plugin: 'com.novoda.bintray-release' // must be applied after your artifact generating plugin (eg. java / com.android.library)
 
-ext {//http://inthecheesefactory.com/blog/how-to-upload-library-to-jcenter-maven-central-as-dependency/en
-    bintrayRepo = 'maven'
-    bintrayName = 'fb-like'
+//ext {//http://inthecheesefactory.com/blog/how-to-upload-library-to-jcenter-maven-central-as-dependency/en
+//    bintrayRepo = 'maven'
+//    bintrayName = 'ok-http-logging'
+//
+//    publishedGroupId = 'com.jleth.util'
+//    libraryName = 'OkHttpLogging'
+//    artifact = 'ok-http-logging'
+//
+//    libraryDescription = 'HTTP logging intercepter for OkHttp2'
+//
+//    siteUrl = 'https://github.com/JeppeLeth/HttpLogging'
+//    gitUrl = 'https://github.com/JeppeLeth/HttpLogging.git'
+//
+//    libraryVersion = '1.0.0'
+//
+//    developerId = 'jeppeleth'
+//    developerName = 'Jeppe Leth Nielsen'
+//    developerEmail = 'jeppe.leth@gmail.com'
+//
+//    licenseName = 'The Apache Software License, Version 2.0'
+//    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+//    allLicenses = ["Apache-2.0"]
+//}
 
-    publishedGroupId = 'com.jleth.util.okhttp'
-    libraryName = 'FBLike'
-    artifact = 'fb-like'
 
-    libraryDescription = 'A wrapper for Facebook Native Like Button (LikeView) on Android'
-
-    siteUrl = 'https://github.com/nuuneoi/FBLikeAndroid'
-    gitUrl = 'https://github.com/nuuneoi/FBLikeAndroid.git'
-
-    libraryVersion = '0.9.3'
-
-    developerId = 'nuuneoi'
-    developerName = 'Sittiphol Phanvilai'
-    developerEmail = 'sittiphol@gmail.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
+publish { // https://github.com/novoda/bintray-release/wiki/Configuration-of-the-publish-closure
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    bintrayUser = properties.getProperty('bintray.user')
+    bintrayKey = properties.getProperty('bintray.apikey')
+    dryRun = false
+    repoName = 'maven' // Default
+    userOrg = 'jeppeleth'
+    groupId = 'com.jleth.util'
+    licences = ['Apache-2.0'] // Default
+    autoPublish = false
+    artifactId = 'ok-http-logging'
+    publishVersion = '1.0.0'
+    desc = 'HTTP logging intercepter for OkHttp2'
+    website = 'https://github.com/JeppeLeth/HttpLogging'
 }
 
 dependencies {
