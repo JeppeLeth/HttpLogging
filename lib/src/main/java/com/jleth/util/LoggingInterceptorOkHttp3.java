@@ -1,13 +1,12 @@
 package com.jleth.util;
 
-import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-import com.squareup.okhttp.ResponseBody;
-
 import java.io.IOException;
 
+import okhttp3.Interceptor;
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import okio.Buffer;
 
 /**
@@ -15,7 +14,7 @@ import okio.Buffer;
  *
  * @author Jeppe Leth Nielsen, https://github.com/JeppeLeth
  */
-public class LoggingInterceptorOkHttp2 implements Interceptor {
+public class LoggingInterceptorOkHttp3 implements Interceptor {
 
     public static final Logger NO_LOG = new Logger() {
         @Override
@@ -34,7 +33,7 @@ public class LoggingInterceptorOkHttp2 implements Interceptor {
         NONE,
         /**
          * Log the headers, body, and metadata for both requests and responses.
-         * <p/>
+         * <p>
          * Note: This requires that the entire request and response body be buffered in memory!
          */
         FULL;
@@ -47,11 +46,11 @@ public class LoggingInterceptorOkHttp2 implements Interceptor {
     private Logger logger;
     private LogLevel logLevel;
 
-    public LoggingInterceptorOkHttp2(Logger logger) {
+    public LoggingInterceptorOkHttp3(Logger logger) {
         this(logger, LogLevel.FULL);
     }
 
-    public LoggingInterceptorOkHttp2(Logger logger, LogLevel logLevel) {
+    public LoggingInterceptorOkHttp3(Logger logger, LogLevel logLevel) {
         this.logger = logger;
         setLogLevel(logLevel);
     }
@@ -140,7 +139,7 @@ public class LoggingInterceptorOkHttp2 implements Interceptor {
     /**
      * Change the level of logging.
      */
-    public LoggingInterceptorOkHttp2 setLogLevel(LogLevel logLevel) {
+    public LoggingInterceptorOkHttp3 setLogLevel(LogLevel logLevel) {
         if (logLevel == null) {
             throw new NullPointerException("Log level may not be null.");
         }
