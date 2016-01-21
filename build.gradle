@@ -35,7 +35,18 @@ allprojects {
     repositories {
         jcenter()
     }
+
+    // Enable provided scope, source: http://www.sinking.in/blog/provided-scope-in-gradle/
+    configurations {
+        provided {
+            dependencies.all { dep ->
+                configurations.default.exclude group: dep.group, module: dep.name
+            }
+        }
+        compile.extendsFrom provided
+    }
 }
+
 
 task clean(type: Delete) {
     delete rootProject.buildDir

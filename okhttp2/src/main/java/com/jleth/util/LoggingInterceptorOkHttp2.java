@@ -1,12 +1,14 @@
 package com.jleth.util;
 
-import java.io.IOException;
+import com.squareup.okhttp.Interceptor;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+import com.squareup.okhttp.ResponseBody;
 
-import okhttp3.Interceptor;
-import okhttp3.MediaType;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
+import java.io.IOException;
+import java.util.Locale;
+
 import okio.Buffer;
 
 /**
@@ -14,7 +16,7 @@ import okio.Buffer;
  *
  * @author Jeppe Leth Nielsen, https://github.com/JeppeLeth
  */
-public class LoggingInterceptorOkHttp3 implements Interceptor {
+public class LoggingInterceptorOkHttp2 implements Interceptor {
 
     public static final Logger NO_LOG = new Logger() {
         @Override
@@ -33,7 +35,7 @@ public class LoggingInterceptorOkHttp3 implements Interceptor {
         NONE,
         /**
          * Log the headers, body, and metadata for both requests and responses.
-         * <p>
+         *
          * Note: This requires that the entire request and response body be buffered in memory!
          */
         FULL;
@@ -46,11 +48,11 @@ public class LoggingInterceptorOkHttp3 implements Interceptor {
     private Logger logger;
     private LogLevel logLevel;
 
-    public LoggingInterceptorOkHttp3(Logger logger) {
+    public LoggingInterceptorOkHttp2(Logger logger) {
         this(logger, LogLevel.FULL);
     }
 
-    public LoggingInterceptorOkHttp3(Logger logger, LogLevel logLevel) {
+    public LoggingInterceptorOkHttp2(Logger logger, LogLevel logLevel) {
         this.logger = logger;
         setLogLevel(logLevel);
     }
@@ -63,25 +65,25 @@ public class LoggingInterceptorOkHttp3 implements Interceptor {
         Request request = chain.request();
 
         long t1 = System.nanoTime();
-        logger.info(String.format("---> HTTP %s %s on %s%n%s",
+        logger.info(String.format(Locale.ENGLISH, "---> HTTP %s %s on %s%n%s",
                 request.method(),
                 request.url(),
                 chain.connection(),
                 removeLastNewline(request.headers())));
         String requestContent = bodyToString(request);
-        logger.info(String.format("%s", requestContent));
-        logger.info(String.format("---> END HTTP (%d-byte body)", (request.body() != null ? request.body().contentLength() : 0)));
+        logger.info(String.format(Locale.ENGLISH, "%s", requestContent));
+        logger.info(String.format(Locale.ENGLISH, "---> END HTTP (%d-byte body)", (request.body() != null ? request.body().contentLength() : 0)));
         Response response;
         try {
             response = chain.proceed(request);
 
         } catch (IOException e) {
-            logger.info(String.format("<--> HTTP connection error (%s) %s", e.getClass().getCanonicalName(), e.getMessage()));
+            logger.info(String.format(Locale.ENGLISH, "<--> HTTP connection error (%s) %s", e.getClass().getCanonicalName(), e.getMessage()));
             throw e;
         }
 
         long t2 = System.nanoTime();
-        logger.info(String.format("<--- HTTP %d %s (%.1fms)%n%s",
+        logger.info(String.format(Locale.ENGLISH, "<--- HTTP %d %s (%.1fms)%n%s",
                 response.code(),
                 response.request().url(),
                 (t2 - t1) / 1e6d,
@@ -93,9 +95,9 @@ public class LoggingInterceptorOkHttp3 implements Interceptor {
             contentType = response.body().contentType();
             responseContent = response.body().string();
         }
-        logger.info(String.format("%s", bodyToString(responseContent)));
+        logger.info(String.format(Locale.ENGLISH, "%s", bodyToString(responseContent)));
 
-        logger.info(String.format("<--- END HTTP (%d-byte body)", (response.body() != null ? response.body().contentLength() : 0)));
+        logger.info(String.format(Locale.ENGLISH, "<--- END HTTP (%d-byte body)", (response.body() != null ? response.body().contentLength() : 0)));
 
         if (response.body() != null) {
             ResponseBody wrappedBody = ResponseBody.create(contentType, responseContent);
@@ -138,8 +140,11 @@ public class LoggingInterceptorOkHttp3 implements Interceptor {
 
     /**
      * Change the level of logging.
+     *
+     * @param logLevel log level type
+     * @return instance for chaining calls
      */
-    public LoggingInterceptorOkHttp3 setLogLevel(LogLevel logLevel) {
+    public LoggingInterceptorOkHttp2 setLogLevel(LogLevel logLevel) {
         if (logLevel == null) {
             throw new NullPointerException("Log level may not be null.");
         }
@@ -149,11 +154,16 @@ public class LoggingInterceptorOkHttp3 implements Interceptor {
 
     /**
      * The current logging level.
+     *
+     * @return current log level
      */
     public LogLevel getLogLevel() {
         return logLevel;
     }
 
+    /**
+     * A Logger object is used to log messages for a specific system or application component.
+     */
     public interface Logger {
         void info(String log);
     }

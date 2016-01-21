@@ -1,5 +1,8 @@
 apply plugin: 'java'
-apply plugin: 'com.novoda.bintray-release' // must be applied after your artifact generating plugin (eg. java / com.android.library)
+apply plugin: 'com.novoda.bintray-release' // must be applied after your artifact generating plugin (eg. java / com.android.library) // https://github.com/novoda/bintray-release
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 //ext {//http://inthecheesefactory.com/blog/how-to-upload-library-to-jcenter-maven-central-as-dependency/en
 //    bintrayRepo = 'maven'
@@ -7,7 +10,7 @@ apply plugin: 'com.novoda.bintray-release' // must be applied after your artifac
 //
 //    publishedGroupId = 'com.jleth.util'
 //    libraryName = 'OkHttpLogging'
-//    artifact = 'ok-http-logging'
+//    artifact = 'okhttp2-logging'
 //
 //    libraryDescription = 'HTTP logging intercepter for OkHttp2'
 //
@@ -25,29 +28,47 @@ apply plugin: 'com.novoda.bintray-release' // must be applied after your artifac
 //    allLicenses = ["Apache-2.0"]
 //}
 
+/*android.libraryVariants.all { variant ->
+    task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
+        description "Generates Javadoc for $variant.name."
+        source = variant.javaCompile.source
+        ext.androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
+        classpath = files(variant.javaCompile.classpath.files) + files(ext.androidJar)
+        options.links("http://docs.oracle.com/javase/7/docs/api/");
+        options.links("http://d.android.com/reference/");
+    }
+    task("bundle${variant.name.capitalize()}Javadoc", type: Jar) {
+        description "Bundles Javadoc into zip for $variant.name."
+        classifier = "javadoc"
+        destinationDir = file("build/outputs")
+        from tasks["generate${variant.name.capitalize()}Javadoc"]
+    }
+}*/
 
 publish { // https://github.com/novoda/bintray-release/wiki/Configuration-of-the-publish-closure
-    Properties properties = new Properties()
-    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
     bintrayUser = properties.getProperty('bintray.user')
     bintrayKey = properties.getProperty('bintray.apikey')
-    dryRun = false
+
+    dryRun = false // true will not upload
+    autoPublish = false
+
     repoName = 'maven' // Default
     userOrg = 'jeppeleth'
+
     groupId = 'com.jleth.util'
-    licences = ['Apache-2.0'] // Default
-    autoPublish = false
-    artifactId = 'ok-http-logging'
+    artifactId = 'okhttp2-logging'
     publishVersion = '1.0.0'
+
     desc = 'HTTP logging intercepter for OkHttp2'
     website = 'https://github.com/JeppeLeth/HttpLogging'
+    licences = ['Apache-2.0'] // Default
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.squareup.okhttp:okhttp:2.7.0'
-    compile 'com.squareup.okhttp3:okhttp:3.0.0-RC1'
+    provided 'com.squareup.okhttp:okhttp:2.7.0'
 }
 
 //apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
