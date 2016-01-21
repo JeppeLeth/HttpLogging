@@ -1,24 +1,38 @@
 HttpLogging
 ========
-HTTP logging intercepter for OkHttp2
+HTTP logging interceptor for OkHttp2 and OkHttp3
 
 For more information please see [the website][1].
 
 
 Download
 --------
-
+__Using OkHttp2:__
 Download [the latest JAR][2] or grab via Maven:
 ```xml
 <dependency>
   <groupId>com.jleth.util</groupId>
-  <artifactId>okhttp2</artifactId>
+  <artifactId>okhttp2-logging</artifactId>
   <version>1.0.0</version>
 </dependency>
 ```
 or Gradle:
 ```groovy
-compile 'com.jleth.util:okhttp2:1.0.0'
+compile 'com.jleth.util:okhttp2-logging:1.0.0'
+```
+
+__Using OkHttp3:__
+Download [the latest JAR][3] or grab via Maven:
+```xml
+<dependency>
+  <groupId>com.jleth.util</groupId>
+  <artifactId>okhttp3-logging</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+or Gradle:
+```groovy
+compile 'com.jleth.util:okhttp3-logging:1.0.0'
 ```
 
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap].
@@ -44,5 +58,6 @@ License
 
 
  [1]: https://github.com/JeppeLeth/HttpLogging
- [2]: https://search.maven.org/remote_content?g=com.jleth.util&a=okhttp2&v=LATEST
+ [2]: https://search.maven.org/remote_content?g=com.jleth.util&a=okhttp2-logging&v=LATEST
+ [2]: https://search.maven.org/remote_content?g=com.jleth.util&a=okhttp3-logging&v=LATEST
  [snap]: https://oss.sonatype.org/content/repositories/snapshots/
