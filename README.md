@@ -9,6 +9,7 @@ Download
 --------
 __Using OkHttp2:__
 Download [the latest JAR][2] or grab via Maven:
+[ ![Download](https://api.bintray.com/packages/jeppeleth/maven/okhttp2-logging/images/download.svg) ](https://bintray.com/jeppeleth/maven/okhttp2-logging/_latestVersion)
 ```xml
 <dependency>
   <groupId>com.jleth.util</groupId>
@@ -23,6 +24,7 @@ compile 'com.jleth.util:okhttp2-logging:1.0.0'
 
 __Using OkHttp3:__
 Download [the latest JAR][3] or grab via Maven:
+[ ![Download](https://api.bintray.com/packages/jeppeleth/maven/okhttp3-logging/images/download.svg) ](https://bintray.com/jeppeleth/maven/okhttp3-logging/_latestVersion)
 ```xml
 <dependency>
   <groupId>com.jleth.util</groupId>
