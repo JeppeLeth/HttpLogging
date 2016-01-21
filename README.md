@@ -37,6 +37,21 @@ or Gradle:
 compile 'com.jleth.util:okhttp3-logging:1.0.0'
 ```
 
+## Usage
+
+To use the logging interceptor to the OkHttpClient in your project, do the following:
+```java
+OkHttpClient.Builder builder = new OkHttpClient.Builder();
+Interceptor loggingInterceptor = new LoggingInterceptor(new LoggingInterceptor.Logger() {
+            @Override
+            public void info(String log) {
+                System.out.println(log);
+            }
+        });
+clientBuilder.addInterceptor(loggingInterceptor);
+OkHttpClient okClient = builder.build();
+```
+
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap].
 
 
