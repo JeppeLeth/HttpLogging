@@ -1,8 +1,74 @@
 apply plugin: 'java'
+apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
+
 
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
+
+// custom tasks for creating source/javadoc jars
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+// add javadoc/source jar tasks as artifacts
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            if (plugins.hasPlugin('war')) {
+                from components.web
+            } else {
+                from components.java
+            }
+            groupId 'com.jleth.util'
+            artifactId 'okhttp3-logging'
+            version '1.0.1'
+
+            pom.withXml { // http://mike-neck.github.io/blog/2013/06/21/how-to-publish-artifacts-with-gradle-maven-publish-plugin-version-1-dot-6/
+                asNode().children().last() + {
+                    resolveStrategy = Closure.DELEGATE_FIRST
+                    name 'OkHttp3 logging interceptor'
+                    description 'HTTP logging intercepter for OkHttp3'
+                    url 'https://github.com/JeppeLeth/HttpLogging'
+                    scm {
+                        connection 'scm:git:git://github.com/JeppeLeth/HttpLogging.git'
+                        developerConnection 'scm:git:ssh:git@github.com:JeppeLeth/HttpLogging.git'
+                        url 'https://github.com/JeppeLeth/HttpLogging'
+                    }
+                    licenses {
+                        license {
+                            name 'The Apache Software License, Version 2.0'
+                            url 'http://www.apache.org/license/LICENSE-2.0.txt'
+                            distribution 'repo'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id 'JeppeLeth'
+                            name 'Jeppe Leth Nielsen'
+                            email 'jeppe.leth@gmail.com'
+                        }
+                    }
+                }
+            }
+
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+}
 
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
@@ -10,10 +76,59 @@ properties.load(project.rootProject.file('local.properties').newDataInputStream(
 bintray {
     user = properties.getProperty('bintray.user')
     key = properties.getProperty('bintray.apikey')
+
+    publications = ['mavenJava']
+    dryRun = false //Whether to run this as dry-run, without deploying
+    publish = false //If version should be auto published after an upload
+
+    pkg {
+        repo = 'maven'
+//            userOrg = 'jeppeleth' //An optional organization name when the repo belongs to one of the user's orgs
+        name = 'okhttp3-logging'
+        desc = 'HTTP logging intercepter for OkHttp3'
+        websiteUrl = 'https://github.com/JeppeLeth/HttpLogging'
+        issueTrackerUrl = 'https://github.com/JeppeLeth/HttpLoggings/issues'
+        vcsUrl = 'https://github.com/JeppeLeth/HttpLogging.git'
+        licenses = ['Apache-2.0']
+        labels = ['logging', 'okhttp', 'okhttp3']
+        publicDownloadNumbers = true
+//        attributes= ['a': ['ay1', 'ay2'], 'b': ['bee'], c: 'cee'] //Optional package-level attributes
+        //Optional version descriptor
+        version {
+            name = '1.0.1' //Bintray logical version name
+            desc = 'optional, version-specific description'
+//                released = 'optional, date of the version release'
+            //2 possible values: date in the format of 'yyyy-MM-dd'T'HH:mm:ss.SSSZZ' OR a java.util.Date instance
+//            vcsTag = '1.3.0'
+//            attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
+            //Optional version-level attributes
+            gpg {
+                sign = true //Determines whether to GPG sign the files. The default is false
+//                passphrase = 'passphrase' //Optional. The passphrase for GPG signing'
+            }
+            mavenCentralSync {
+                sync = false //Optional (true by default). Determines whether to sync the version to Maven Central.
+//                user = 'JeppeLeth' //OSS user token
+//                password = '************' //OSS user password
+//                close = '1' //Optional property. By default the staging repository is closed and artifacts are released to Maven Central. You can optionally turn this behaviour off (by puting 0 as value) and release the version manually.
+            }
+        }
+    }
+
 }
+
+
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     provided 'com.squareup.okhttp3:okhttp:3.0.1'
 }
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.8'
+}
+
+//apply from: '../installv1.gradle'
+//apply from: '../bintrayv1java.gradle'

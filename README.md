@@ -14,12 +14,12 @@ Download [the latest JAR][2] or grab via Maven:
 <dependency>
   <groupId>com.jleth.util</groupId>
   <artifactId>okhttp2-logging</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
 </dependency>
 ```
 or Gradle:
 ```groovy
-compile 'com.jleth.util:okhttp2-logging:1.0.0'
+compile 'com.jleth.util:okhttp2-logging:1.0.1'
 ```
 
 __Using OkHttp3:__
@@ -29,12 +29,12 @@ Download [the latest JAR][3] or grab via Maven:
 <dependency>
   <groupId>com.jleth.util</groupId>
   <artifactId>okhttp3-logging</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
 </dependency>
 ```
 or Gradle:
 ```groovy
-compile 'com.jleth.util:okhttp3-logging:1.0.0'
+compile 'com.jleth.util:okhttp3-logging:1.0.1'
 ```
 
 ## Usage
@@ -42,7 +42,7 @@ compile 'com.jleth.util:okhttp3-logging:1.0.0'
 To use the logging interceptor to the OkHttpClient in your project, do the following:
 ```java
 OkHttpClient.Builder builder = new OkHttpClient.Builder();
-Interceptor loggingInterceptor = new LoggingInterceptor(new LoggingInterceptor.Logger() {
+Interceptor loggingInterceptor = new LoggingInterceptorOkHttp3(new LoggingInterceptorOkHttp3.Logger() {
             @Override
             public void info(String log) {
                 System.out.println(log);
