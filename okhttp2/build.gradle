@@ -1,6 +1,9 @@
 apply plugin: 'java'
 apply plugin: 'com.novoda.bintray-release' // must be applied after your artifact generating plugin (eg. java / com.android.library) // https://github.com/novoda/bintray-release
 
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
