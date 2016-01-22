@@ -8,7 +8,8 @@ For more information please see [the website][1].
 Download
 --------
 __Using OkHttp2:__
-Download [the latest JAR][2] or grab via Maven:
+Download [the latest JAR][2] or grab via Maven or JCenter:
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.jleth.util/okhttp2-logging/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.jleth.util/okhttp2-logging)
 [ ![Download](https://api.bintray.com/packages/jeppeleth/maven/okhttp2-logging/images/download.svg) ](https://bintray.com/jeppeleth/maven/okhttp2-logging/_latestVersion)
 ```xml
 <dependency>
@@ -23,7 +24,8 @@ compile 'com.jleth.util:okhttp2-logging:1.0.1'
 ```
 
 __Using OkHttp3:__
-Download [the latest JAR][3] or grab via Maven:
+Download [the latest JAR][3] or grab via Maven or JCenter:
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.jleth.util/okhttp2-logging/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.jleth.util/okhttp2-logging)
 [ ![Download](https://api.bintray.com/packages/jeppeleth/maven/okhttp3-logging/images/download.svg) ](https://bintray.com/jeppeleth/maven/okhttp3-logging/_latestVersion)
 ```xml
 <dependency>
@@ -76,5 +78,5 @@ License
 
  [1]: https://github.com/JeppeLeth/HttpLogging
  [2]: https://search.maven.org/remote_content?g=com.jleth.util&a=okhttp2-logging&v=LATEST
- [2]: https://search.maven.org/remote_content?g=com.jleth.util&a=okhttp3-logging&v=LATEST
+ [3]: https://search.maven.org/remote_content?g=com.jleth.util&a=okhttp3-logging&v=LATEST
  [snap]: https://oss.sonatype.org/content/repositories/snapshots/
