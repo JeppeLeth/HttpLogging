@@ -8,9 +8,9 @@ For more information please see [the website][1].
 Download
 --------
 __Using OkHttp2:__
-Download [the latest JAR][2] or grab via Maven or JCenter:
+Download [the latest JAR][2] or grab via Maven:
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.jleth.util/okhttp2-logging/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.jleth.util/okhttp2-logging)
-[ ![Download](https://api.bintray.com/packages/jeppeleth/maven/okhttp2-logging/images/download.svg) ](https://bintray.com/jeppeleth/maven/okhttp2-logging/_latestVersion)
+[ ![Bintray](https://api.bintray.com/packages/jeppeleth/maven/okhttp2-logging/images/download.svg) ](https://bintray.com/jeppeleth/maven/okhttp2-logging/_latestVersion)
 ```xml
 <dependency>
   <groupId>com.jleth.util</groupId>
@@ -24,9 +24,9 @@ compile 'com.jleth.util:okhttp2-logging:1.0.1'
 ```
 
 __Using OkHttp3:__
-Download [the latest JAR][3] or grab via Maven or JCenter:
+Download [the latest JAR][3] or grab via Maven:
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.jleth.util/okhttp2-logging/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.jleth.util/okhttp2-logging)
-[ ![Download](https://api.bintray.com/packages/jeppeleth/maven/okhttp3-logging/images/download.svg) ](https://bintray.com/jeppeleth/maven/okhttp3-logging/_latestVersion)
+[ ![Bintray](https://api.bintray.com/packages/jeppeleth/maven/okhttp3-logging/images/download.svg) ](https://bintray.com/jeppeleth/maven/okhttp3-logging/_latestVersion)
 ```xml
 <dependency>
   <groupId>com.jleth.util</groupId>
