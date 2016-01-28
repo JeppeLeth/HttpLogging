@@ -1,4 +1,4 @@
-package com.leth.util;
+package com.jleth.util;
 
 import java.io.IOException;
 import java.util.Locale;
