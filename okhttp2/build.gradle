@@ -123,7 +123,7 @@ bintray {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    provided 'com.squareup.okhttp:okhttp:2.7.2'
+    provided 'com.squareup.okhttp:okhttp:2.7.5'
 }
 
 task wrapper(type: Wrapper) {

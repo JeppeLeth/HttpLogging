@@ -31,12 +31,12 @@ Download [the latest JAR][3] or grab via Maven:
 <dependency>
   <groupId>com.jleth.util</groupId>
   <artifactId>okhttp3-logging</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
 </dependency>
 ```
 or Gradle:
 ```groovy
-compile 'com.jleth.util:okhttp3-logging:1.0.1'
+compile 'com.jleth.util:okhttp3-logging:1.0.2'
 ```
 
 ## Usage
