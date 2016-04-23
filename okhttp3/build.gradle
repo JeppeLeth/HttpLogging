@@ -23,7 +23,9 @@ artifacts {
     archives javadocJar
 }
 
-
+// To publish run generatePomFileForMaven and afterwards bintrayUpload. (or run task customBintrayUploadWithPom)
+// Login to BinTray and check files + .asc files (8 files total) exists
+// Publish on BinTray and sync with MavenCentral (check Close and release repository when done)
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -34,7 +36,7 @@ publishing {
             }
             groupId 'com.jleth.util'
             artifactId 'okhttp3-logging'
-            version '1.0.1'
+            version '1.0.2'
 
             pom.withXml { // http://mike-neck.github.io/blog/2013/06/21/how-to-publish-artifacts-with-gradle-maven-publish-plugin-version-1-dot-6/
                 asNode().children().last() + {
@@ -93,9 +95,12 @@ bintray {
         labels = ['logging', 'okhttp', 'okhttp3']
         publicDownloadNumbers = true
 //        attributes= ['a': ['ay1', 'ay2'], 'b': ['bee'], c: 'cee'] //Optional package-level attributes
+        githubRepo = 'JeppeLeth/HttpLogging' //Optional Github repository
+        githubReleaseNotesFile = 'README.md' //Optional Github readme file
+
         //Optional version descriptor
         version {
-            name = '1.0.1' //Bintray logical version name
+            name = '1.0.2' //Bintray logical version name
             desc = 'optional, version-specific description'
 //                released = 'optional, date of the version release'
             //2 possible values: date in the format of 'yyyy-MM-dd'T'HH:mm:ss.SSSZZ' OR a java.util.Date instance
@@ -127,8 +132,10 @@ dependencies {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.8'
+    gradleVersion = '2.12'
 }
+
+task customBintrayUploadWithPom(dependsOn: ['generatePomFileForMavenJavaPublication', 'bintrayUpload'])
 
 //apply from: '../installv1.gradle'
 //apply from: '../bintrayv1java.gradle'
